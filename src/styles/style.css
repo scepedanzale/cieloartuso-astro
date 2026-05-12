@@ -255,13 +255,25 @@ h1 em {
 .nav__link:hover {
     color: var(--color-ink);
 }
+.nav__hamburger:focus {
+    outline: none;
+}
 
+.nav__hamburger:focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 4px;
+}
 .nav__hamburger {
     display: none;
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
     padding: 4px;
+    border: 0;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    color: inherit;
 }
 
 .nav__hamburger span {
@@ -346,6 +358,57 @@ h1 em {
 .icon__ig--mobile:hover {
     color: var(--color-ink);
 }
+
+/* ================================
+   DARK NAV VARIANT
+================================ */
+
+.blog-page .nav,
+.post-page .nav {
+    background: var(--color-ink);
+    border-bottom: 0.5px solid #3a3630;
+}
+
+.blog-page .nav__link,
+.post-page .nav__link {
+    color: var(--color-border);
+}
+
+.blog-page .nav__link:hover,
+.post-page .nav__link:hover {
+    color: var(--color-bg);
+}
+
+.blog-page .nav__hamburger span,
+.post-page .nav__hamburger span {
+    background: var(--color-border);
+}
+
+.blog-page .icon__ig--mobile,
+.post-page .icon__ig--mobile {
+    color: var(--color-border);
+}
+
+.blog-page .icon__ig--mobile:hover,
+.post-page .icon__ig--mobile:hover {
+    color: var(--color-bg);
+}
+
+.blog-page .nav__mobile,
+.post-page .nav__mobile {
+    background: var(--color-ink);
+}
+
+.blog-page .nav__mobile-link,
+.post-page .nav__mobile-link {
+    color: var(--color-border);
+}
+
+.blog-page .nav__mobile-link:hover,
+.post-page .nav__mobile-link:hover {
+    color: var(--color-bg);
+}
+
 
 /* ================================
    FOOTER
