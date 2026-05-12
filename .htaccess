@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# forza HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# forza www
+RewriteCond %{HTTP_HOST} ^cieloartuso\.com [NC]
+RewriteRule ^(.*)$ https://www.cieloartuso.com/$1 [L,R=301]
+
+# URL senza .html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# redirect se qualcuno scrive .html
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html
+RewriteRule ^ /%1 [R=301,L]
+
+# pagina errore personalizzata
+ErrorDocument 404 /404.html
