@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/blog.css";
+import "../styles/blog-post.css";
+
+type BlogPost = CollectionEntry<"blog">;
+
+type Props = {
+    post: BlogPost;
+    prevPost?: BlogPost | null;
+    nextPost?: BlogPost | null;
+};
+
+const { post, prevPost, nextPost } = Astro.props as Props;
+
+const formattedDate = post.data.date.toLocaleDateString("it-IT", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+});
+---
+
+<BaseLayout
+    title={`${post.data.title} — Cielo Artuso`}
+    description={post.data.description}
+    pageClass="post-page"
+    logoVariant="light"
+>
+    <article class="post">
+        <header class="post-hero">
+            <div class="post-hero__top">
+                <div class="post-hero__title">
+                    <div class="post-meta">
+                        <span class="post-date">{formattedDate}</span>
+                        <span class="meta-sep"></span>
+                        <span class="post-cat">{post.data.tag}</span>
+                    </div>
+
+                    <h1 set:html={post.data.displayTitle} />
+                </div>
+
+                <div class="post-hero__intro">
+                    <p class="post-intro">
+                        {post.data.description}
+                    </p>
+                </div>
+            </div>
+
+            <div class="post-cover">
+                <img src={post.data.cover} alt="" />
+            </div>
+        </header>
+
+        <section class="post-content">
+            <aside class="post-aside">
+                <span class="post-aside__label">lettura</span>
+                <span class="post-aside__value"
+                    >{post.data.readingTime} min</span
+                >
+            </aside>
+            <div class="post-body">
+                <slot />
+            </div>
+        </section>
+
+        <footer class="post-footer">
+            <a href="/blog" class="post-footer__back">← torna al blog</a>
+
+            <div class="post-footer__pagination">
+                {
+                    prevPost ? (
+                        <a
+                            href={`/blog/${prevPost.id}`}
+                        >
+                            ← prev
+                        </a>
+                    ) : (
+                        <span class="post-footer__link post-footer__link--disabled">
+                            ← prev
+                        </span>
+                    )
+                }
+
+                {
+                    nextPost ? (
+                        <a
+                            href={`/blog/${nextPost.id}`}
+                        >
+                            next →
+                        </a>
+                    ) : (
+                        <span class="post-footer__link post-footer__link--disabled">
+                            next →
+                        </span>
+                    )
+                }
+            </div>
+        </footer>
+    </article>
+</BaseLayout>

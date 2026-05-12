@@ -1,0 +1,138 @@
+---
+const { logoVariant = "dark" } = Astro.props;
+
+const logoSrc =
+  logoVariant === "light"
+    ? "/images/logo-light.png"
+    : "/images/logo.png";
+---
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="mobile-menu">
+    <a href="/#work" class="nav__mobile-link">work</a>
+    <a href="/blog" class="nav__mobile-link">blog</a>
+    <a href="/#contact" class="nav__mobile-link">contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="/" class="nav__logo" aria-label="Cielo Artuso home">
+      <img src={logoSrc} alt="Cielo Artuso">
+    </a>
+
+    <div class="nav__links">
+      <a href="/#work" class="nav__link">work</a>
+      <a href="/blog" class="nav__link">blog</a>
+      <a href="/#contact" class="nav__link">contact</a>
+
+      <a
+        href="https://instagram.com/cieloartuso"
+        target="_blank"
+        rel="noopener"
+        class="icon__ig"
+        aria-label="Instagram"
+      >
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="nav__right">
+      <a
+        href="https://instagram.com/cieloartuso"
+        target="_blank"
+        rel="noopener"
+        class="icon__ig icon__ig--mobile"
+        aria-label="Instagram"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+
+      <button
+        class="nav__hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Apri menu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+<script>
+  const menu = document.getElementById("mobile-menu");
+  const hamburger = document.getElementById("hamburger");
+  const mobileLinks = document.querySelectorAll(".nav__mobile-link");
+
+  const MENU_READY_CLASS = "nav__mobile--ready";
+  const MENU_OPEN_CLASS = "nav__mobile--open";
+  const HAMBURGER_OPEN_CLASS = "nav__hamburger--open";
+
+  function isMobileMenuOpen() {
+    return hamburger?.classList.contains(HAMBURGER_OPEN_CLASS);
+  }
+
+  function hideMenuAfterTransition() {
+    if (!menu) return;
+
+    menu.addEventListener(
+      "transitionend",
+      () => {
+        if (!menu.classList.contains(MENU_OPEN_CLASS)) {
+          menu.classList.remove(MENU_READY_CLASS);
+        }
+      },
+      { once: true }
+    );
+  }
+
+  function openMobileMenu() {
+    if (!menu || !hamburger) return;
+
+    menu.classList.add(MENU_READY_CLASS);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        menu.classList.add(MENU_OPEN_CLASS);
+        hamburger.classList.add(HAMBURGER_OPEN_CLASS);
+        hamburger.setAttribute("aria-expanded", "true");
+      });
+    });
+  }
+
+  function closeMobileMenu() {
+    if (!menu || !hamburger) return;
+
+    menu.classList.remove(MENU_OPEN_CLASS);
+    hamburger.classList.remove(HAMBURGER_OPEN_CLASS);
+    hamburger.setAttribute("aria-expanded", "false");
+
+    hideMenuAfterTransition();
+  }
+
+  function toggleMobileMenu() {
+    if (isMobileMenuOpen()) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
+  hamburger?.addEventListener("click", toggleMobileMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+</script>

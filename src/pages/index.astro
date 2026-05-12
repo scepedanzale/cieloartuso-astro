@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+import '../styles/home.css'
+---
+
+<BaseLayout>
+	<!-- ABOVE FOLD -->
+	<div class="fold">
+		<!-- PROGETTI -->
+		<section class="projects" id="work">
+			{
+				projects.map((project, i) => (
+					<a href={`/works/${project.slug}`} class="project">
+						<div class="project__img project__img--1">
+							<img
+								src={project.cover}
+								alt={project.title}
+								class="project__screenshot"
+							/>
+							<span class="project__num">00{i+1}</span>
+							<span class="project__arrow">↗</span>
+						</div>
+						<div class="project__info">
+							<div class="project__name">
+								{project.title}
+							</div>
+							<div class="project__type">{project.sector} · {project.year}</div>
+						</div>
+					</a>
+				))
+			}
+		</section>
+
+		<!-- HERO -->
+		<section class="hero">
+			<div class="hero__name-cell">
+				<h1 class="hero__name"><em>Cielo</em><br />Artuso</h1>
+				<p class="hero__role">web developer</p>
+			</div>
+			<div class="hero__side">
+				<p class="hero__desc">
+					Realizzo <em>siti web su misura</em>,
+					<em>web app</em> e <em>gestionali</em> —<br />
+					da zero o ridisegnando quello che hai già
+				</p>
+			</div>
+		</section>
+	</div>
+
+	<!-- BELOW FOLD -->
+	<div class="info">
+		<div class="about" id="about">
+			<span class="label">about</span>
+			<p class="about__text">
+				Informatico di formazione, sviluppatore per scelta.
+				<br />
+				Con <em>attenzione al codice</em> e alla <em>semplicità</em>.
+			</p>
+		</div>
+		<div class="contact" id="contact">
+			<span class="label">contact</span>
+			<a href="mailto:info@cieloartuso.com" class="contact__email"
+				>info@cieloartuso.com</a
+			>
+			<p class="contact__loc">Milano, IT</p>
+		</div>
+	</div>
+</BaseLayout>

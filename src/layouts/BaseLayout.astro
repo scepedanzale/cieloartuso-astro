@@ -1,0 +1,30 @@
+---
+// src/layouts/BaseLayout.astro
+import "../styles/style.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const {
+  title = "Cielo Artuso",
+  description = "Siti web su misura, portfolio e appunti di web design e sviluppo.",
+  pageClass = "",
+  logoVariant = "dark",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/images/logo-icon.png">
+  </head>
+
+  <body class={pageClass}>
+    <Header logoVariant={logoVariant} />
+    <slot />
+    <Footer/>
+  </body>
+</html>

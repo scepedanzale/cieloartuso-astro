@@ -1,0 +1,31 @@
+---
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project, index) => {
+    const prevProject = projects[index - 1] ?? projects[projects.length - 1];
+    const nextProject = projects[index + 1] ?? projects[0];
+
+    return {
+      params: {
+        slug: project.slug,
+      },
+      props: {
+        project,
+        prevProject,
+        nextProject,
+      },
+    };
+  });
+}
+
+const { project, prevProject, nextProject } = Astro.props;
+---
+
+
+<ProjectLayout
+  project={project}
+  prevProject={prevProject}
+  nextProject={nextProject}
+/>

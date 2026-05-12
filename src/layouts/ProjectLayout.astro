@@ -1,0 +1,88 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/work.css";
+const { project, prevProject, nextProject } = Astro.props;
+---
+
+<BaseLayout
+    title={`${project.title} — Cielo Artuso`}
+    description={project.meta_description}
+>
+   
+
+    <!-- HEADER PROGETTO -->
+    <header class="work-header">
+        <div class="work-header__title">
+            <h1 class="work-title" set:html={project.displayTitle} />
+        </div>
+        <div class="work-header__meta">
+            <div class="work-meta__cell">
+                <span class="work-meta__label">Tipo</span>
+                <span class="work-meta__value">{project.type}</span>
+            </div>
+            <div class="work-meta__cell">
+                <span class="work-meta__label">Anno</span>
+                <span class="work-meta__value">{project.year}</span>
+            </div>
+            <div class="work-meta__cell">
+                <span class="work-meta__label">Settore</span>
+                <span class="work-meta__value">{project.sector}</span>
+            </div>
+            <div class="work-meta__cell">
+                <span class="work-meta__label">Link</span>
+                <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener"
+                    class="work-meta__link">↗ visita</a
+                >
+            </div>
+        </div>
+    </header>
+
+    <div class="work-content">
+        <div class="work-content__desc">
+            <span class="work-content__tag">il progetto</span>
+            <div class="work-content__text" set:html={project.content} />
+        </div>
+        <div class="work-content__screen">
+            <img src={project.cover} alt={project.title} />
+        </div>
+    </div>
+
+    <nav class="work-subnav">
+  <a href="/#work" class="work-nav__back">← Back to work</a>
+
+  <div class="work-nav__pagination">
+    {
+      prevProject ? (
+        <a
+          href={`/works/${prevProject.slug}`}
+          class="work-nav__page"
+        >
+          ← Prev
+        </a>
+      ) : (
+        <span class="work-nav__page work-nav__page--disabled">
+          ← Prev
+        </span>
+      )
+    }
+
+    {
+      nextProject ? (
+        <a
+          href={`/works/${nextProject.slug}`}
+          class="work-nav__page"
+        >
+          Next →
+        </a>
+      ) : (
+        <span class="work-nav__page work-nav__page--disabled">
+          Next →
+        </span>
+      )
+    }
+  </div>
+</nav>
+</BaseLayout>

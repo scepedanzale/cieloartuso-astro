@@ -1,0 +1,37 @@
+---
+// src/layouts/BaseLayout.astro
+import "../styles/style.css";
+import "../styles/404.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="Pagina non trovata — Cielo Artuso"
+    description="La pagina che stai cercando non esiste o è stata spostata."
+    pageClass="error-page"
+>
+    <main class="error-404">
+        <section class="error-404__code">
+            <span>404</span>
+        </section>
+
+        <section class="error-404__content">
+            <span class="label">pagina non trovata</span>
+
+            <div class="error-404__text">
+                <h1>
+                    Qui non c'è niente.<br /><em>O forse è stato tolto.</em>
+                </h1>
+
+                <p>
+                    La pagina che stai cercando non esiste, è stata spostata o
+                    non è ancora stata pubblicata.
+                </p>
+
+                <div class="error-404__links">
+                    <a href="/">← torna alla home</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</BaseLayout>

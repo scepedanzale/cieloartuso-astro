@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type BlogPost = CollectionEntry<"blog">;
+
+type Props = {
+    post: BlogPost;
+};
+
+const { post } = Astro.props as Props;
+
+const formattedDate = post.data.date.toLocaleDateString("it-IT", {
+    month: "short",
+    year: "numeric",
+});
+---
+
+<a href={`/blog/${post.id}`} class="article-row" data-cat={post.data.tag}>
+  <div class="art-meta art-meta--desktop">
+    <span class="art-date">{formattedDate}</span>
+    {post.data.tag && <span class="art-cat">{post.data.tag}</span>}
+  </div>
+
+  {post.data.cover && (
+    <div class="art-img">
+      <img
+        src={post.data.cover}
+        alt=""
+        loading="lazy"
+      />
+    </div>
+  )}
+
+  <div class="art-main">
+    <div class="art-title">{post.data.title}</div>
+
+    <div class="art-meta art-meta--mobile">
+      <span class="art-date">{formattedDate}</span>
+      {post.data.tag && <span class="art-cat">{post.data.tag}</span>}
+    </div>
+  </div>
+
+  <span class="art-arrow" aria-hidden="true">↗</span>
+</a>
